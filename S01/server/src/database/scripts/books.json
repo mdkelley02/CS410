@@ -1,0 +1,402 @@
+[
+    {
+        "title": "Things Fall Apart",
+        "author": "Chinua Achebe"
+    },
+    {
+        "title": "Fairy tales",
+        "author": "Hans Christian Andersen"
+    },
+    {
+        "title": "The Divine Comedy",
+        "author": "Dante Alighieri"
+    },
+    {
+        "title": "The Epic Of Gilgamesh",
+        "author": "Unknown"
+    },
+    {
+        "title": "The Book Of Job",
+        "author": "Unknown"
+    },
+    {
+        "title": "One Thousand and One Nights",
+        "author": "Unknown"
+    },
+    {
+        "title": "Njál''s Saga",
+        "author": "Unknown"
+    },
+    {
+        "title": "Pride and Prejudice",
+        "author": "Jane Austen"
+    },
+    {
+        "title": "Le Père Goriot",
+        "author": "Honoré de Balzac"
+    },
+    {
+        "title": "Molloy, Malone Dies, The Unnamable, the trilogy",
+        "author": "Samuel Beckett"
+    },
+    {
+        "title": "The Decameron",
+        "author": "Giovanni Boccaccio"
+    },
+    {
+        "title": "Ficciones",
+        "author": "Jorge Luis Borges"
+    },
+    {
+        "title": "Wuthering Heights",
+        "author": "Emily Brontë"
+    },
+    {
+        "title": "The Stranger",
+        "author": "Albert Camus"
+    },
+    {
+        "title": "Poems",
+        "author": "Paul Celan"
+    },
+    {
+        "title": "Journey to the End of the Night",
+        "author": "Louis-Ferdinand Céline"
+    },
+    {
+        "title": "Don Quijote De La Mancha",
+        "author": "Miguel de Cervantes"
+    },
+    {
+        "title": "The Canterbury Tales",
+        "author": "Geoffrey Chaucer"
+    },
+    {
+        "title": "Stories",
+        "author": "Anton Chekhov"
+    },
+    {
+        "title": "Nostromo",
+        "author": "Joseph Conrad"
+    },
+    {
+        "title": "Great Expectations",
+        "author": "Charles Dickens"
+    },
+    {
+        "title": "Jacques the Fatalist",
+        "author": "Denis Diderot"
+    },
+    {
+        "title": "Berlin Alexanderplatz",
+        "author": "Alfred Döblin"
+    },
+    {
+        "title": "Crime and Punishment",
+        "author": "Fyodor Dostoevsky"
+    },
+    {
+        "title": "The Idiot",
+        "author": "Fyodor Dostoevsky"
+    },
+    {
+        "title": "The Possessed",
+        "author": "Fyodor Dostoevsky"
+    },
+    {
+        "title": "The Brothers Karamazov",
+        "author": "Fyodor Dostoevsky"
+    },
+    {
+        "title": "Middlemarch",
+        "author": "George Eliot"
+    },
+    {
+        "title": "Invisible Man",
+        "author": "Ralph Ellison"
+    },
+    {
+        "title": "Medea",
+        "author": "Euripides"
+    },
+    {
+        "title": "Absalom, Absalom!",
+        "author": "William Faulkner"
+    },
+    {
+        "title": "The Sound and the Fury",
+        "author": "William Faulkner"
+    },
+    {
+        "title": "Madame Bovary",
+        "author": "Gustave Flaubert"
+    },
+    {
+        "title": "Sentimental Education",
+        "author": "Gustave Flaubert"
+    },
+    {
+        "title": "Gypsy Ballads",
+        "author": "Federico García Lorca"
+    },
+    {
+        "title": "One Hundred Years of Solitude",
+        "author": "Gabriel García Márquez"
+    },
+    {
+        "title": "Love in the Time of Cholera",
+        "author": "Gabriel García Márquez"
+    },
+    {
+        "title": "Faust",
+        "author": "Johann Wolfgang von Goethe"
+    },
+    {
+        "title": "Dead Souls",
+        "author": "Nikolai Gogol"
+    },
+    {
+        "title": "The Tin Drum",
+        "author": "Günter Grass"
+    },
+    {
+        "title": "The Devil to Pay in the Backlands",
+        "author": "João Guimarães Rosa"
+    },
+    {
+        "title": "Hunger",
+        "author": "Knut Hamsun"
+    },
+    {
+        "title": "The Old Man and the Sea",
+        "author": "Ernest Hemingway"
+    },
+    {
+        "title": "Iliad",
+        "author": "Homer"
+    },
+    {
+        "title": "Odyssey",
+        "author": "Homer"
+    },
+    {
+        "title": "A Doll''s House",
+        "author": "Henrik Ibsen"
+    },
+    {
+        "title": "Ulysses",
+        "author": "James Joyce"
+    },
+    {
+        "title": "Stories",
+        "author": "Franz Kafka"
+    },
+    {
+        "title": "The Trial",
+        "author": "Franz Kafka"
+    },
+    {
+        "title": "The Castle",
+        "author": "Franz Kafka"
+    },
+    {
+        "title": "The recognition of Shakuntala",
+        "author": "Kālidāsa"
+    },
+    {
+        "title": "The Sound of the Mountain",
+        "author": "Yasunari Kawabata"
+    },
+    {
+        "title": "Zorba the Greek",
+        "author": "Nikos Kazantzakis"
+    },
+    {
+        "title": "Sons and Lovers",
+        "author": "D. H. Lawrence"
+    },
+    {
+        "title": "Independent People",
+        "author": "Halldór Laxness"
+    },
+    {
+        "title": "Poems",
+        "author": "Giacomo Leopardi"
+    },
+    {
+        "title": "The Golden Notebook",
+        "author": "Doris Lessing"
+    },
+    {
+        "title": "Pippi Longstocking",
+        "author": "Astrid Lindgren"
+    },
+    {
+        "title": "Diary of a Madman",
+        "author": "Lu Xun"
+    },
+    {
+        "title": "Children of Gebelawi",
+        "author": "Naguib Mahfouz"
+    },
+    {
+        "title": "Buddenbrooks",
+        "author": "Thomas Mann"
+    },
+    {
+        "title": "The Magic Mountain",
+        "author": "Thomas Mann"
+    },
+    {
+        "title": "Moby Dick",
+        "author": "Herman Melville"
+    },
+    {
+        "title": "Essays",
+        "author": "Michel de Montaigne"
+    },
+    {
+        "title": "History",
+        "author": "Elsa Morante"
+    },
+    {
+        "title": "Beloved",
+        "author": "Toni Morrison"
+    },
+    {
+        "title": "The Tale of Genji",
+        "author": "Murasaki Shikibu"
+    },
+    {
+        "title": "The Man Without Qualities",
+        "author": "Robert Musil"
+    },
+    {
+        "title": "Lolita",
+        "author": "Vladimir Nabokov"
+    },
+    {
+        "title": "Nineteen Eighty-Four",
+        "author": "George Orwell"
+    },
+    {
+        "title": "Metamorphoses",
+        "author": "Ovid"
+    },
+    {
+        "title": "The Book of Disquiet",
+        "author": "Fernando Pessoa"
+    },
+    {
+        "title": "Tales",
+        "author": "Edgar Allan Poe"
+    },
+    {
+        "title": "In Search of Lost Time",
+        "author": "Marcel Proust"
+    },
+    {
+        "title": "Gargantua and Pantagruel",
+        "author": "François Rabelais"
+    },
+    {
+        "title": "Pedro Páramo",
+        "author": "Juan Rulfo"
+    },
+    {
+        "title": "The Masnavi",
+        "author": "Rumi"
+    },
+    {
+        "title": "Midnight''s Children",
+        "author": "Salman Rushdie"
+    },
+    {
+        "title": "Bostan",
+        "author": "Saadi"
+    },
+    {
+        "title": "Season of Migration to the North",
+        "author": "Tayeb Salih"
+    },
+    {
+        "title": "Blindness",
+        "author": "José Saramago"
+    },
+    {
+        "title": "Hamlet",
+        "author": "William Shakespeare"
+    },
+    {
+        "title": "King Lear",
+        "author": "William Shakespeare"
+    },
+    {
+        "title": "Othello",
+        "author": "William Shakespeare"
+    },
+    {
+        "title": "Oedipus the King",
+        "author": "Sophocles"
+    },
+    {
+        "title": "The Red and the Black",
+        "author": "Stendhal"
+    },
+    {
+        "title": "The Life And Opinions of Tristram Shandy",
+        "author": "Laurence Sterne"
+    },
+    {
+        "title": "Confessions of Zeno",
+        "author": "Italo Svevo"
+    },
+    {
+        "title": "Gulliver''s Travels",
+        "author": "Jonathan Swift"
+    },
+    {
+        "title": "War and Peace",
+        "author": "Leo Tolstoy"
+    },
+    {
+        "title": "Anna Karenina",
+        "author": "Leo Tolstoy"
+    },
+    {
+        "title": "The Death of Ivan Ilyich",
+        "author": "Leo Tolstoy"
+    },
+    {
+        "title": "The Adventures of Huckleberry Finn",
+        "author": "Mark Twain"
+    },
+    {
+        "title": "Ramayana",
+        "author": "Valmiki"
+    },
+    {
+        "title": "The Aeneid",
+        "author": "Virgil"
+    },
+    {
+        "title": "Mahabharata",
+        "author": "Vyasa"
+    },
+    {
+        "title": "Leaves of Grass",
+        "author": "Walt Whitman"
+    },
+    {
+        "title": "Mrs Dalloway",
+        "author": "Virginia Woolf"
+    },
+    {
+        "title": "To the Lighthouse",
+        "author": "Virginia Woolf"
+    },
+    {
+        "title": "Memoirs of Hadrian",
+        "author": "Marguerite Yourcenar"
+    }
+]
