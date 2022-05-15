@@ -1,0 +1,11 @@
+<div class="container">
+  <div class="section">
+    <div *ngIf="book$ | async as book">
+      <div class="book" *ngFor="let b of book">
+        <div class="title">{{ b.title }}</div>
+        <div class="author">{{ b.author }}</div>
+        <div class="publisher">{{ b.publisher }}</div>
+      </div>
+    </div>
+  </div>
+</div>

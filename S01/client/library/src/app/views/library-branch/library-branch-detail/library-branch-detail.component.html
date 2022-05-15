@@ -1,0 +1,16 @@
+<div class="container">
+  <div class="section">
+    <h2>Loan Book</h2>
+  </div>
+  <div class="section">
+    <h2>Return Book</h2>
+  </div>
+  <div class="section">
+    <h2>Book Copies</h2>
+    <div *ngIf="books$ | async as books">
+      <div class="book" *ngFor="let book of books">
+        <div>{{ book.title }}#{{ book.book_copy_id }}</div>
+      </div>
+    </div>
+  </div>
+</div>

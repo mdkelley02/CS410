@@ -1,6 +1,6 @@
 const mysql = require("mysql");
 import { config } from "../config";
-import { MysqlConnection } from "../models";
+import { MysqlConnection } from "../types";
 
 const conn: MysqlConnection = mysql.createConnection({
   host: config.db.host,

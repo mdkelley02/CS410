@@ -1,0 +1,34 @@
+[
+	{
+		"borrower_id" : 1,
+		"name" : "John Doe"
+	},
+	{
+		"borrower_id" : 2,
+		"name" : "Mike Lynott"
+	},
+	{
+		"borrower_id" : 3,
+		"name" : "Matthew Kelley"
+	},
+	{
+		"borrower_id" : 4,
+		"name" : "Linus Torvalds"
+	},
+	{
+		"borrower_id" : 5,
+		"name" : "Moe Lester"
+	},
+	{
+		"borrower_id" : 6,
+		"name" : "Wayne Ker"
+	},
+	{
+		"borrower_id" : 7,
+		"name" : "Jenny Tayla"
+	},
+	{
+		"borrower_id" : 8,
+		"name" : "Harry Johnson"
+	}
+]

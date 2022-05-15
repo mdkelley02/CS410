@@ -1,28 +1,38 @@
-import * as express from "express";
-
-export interface Route {
-  path: string;
-  method: string;
-  handler: express.RequestHandler;
-}
-
-export interface Config {
-  port: string;
-  db: {
-    host: string;
-    user: string;
-    password: string;
-    database: string;
-    port: string;
-  };
-}
-
-export interface Book {
+export type Book = {
   book_id?: number;
   title: string;
   author: string;
   publisher_id: number;
-}
+};
+
+export type BookResponse = {
+  book_id: string;
+  publisher_id: number;
+  title: string;
+  author: string;
+  publisher: string;
+};
+
+export type BookLoansResponse = {
+  number_of_loans: number;
+  name: string;
+};
+
+export type BookStockResponse = {
+  count: number;
+  name: string;
+  library_branch_id: number;
+};
+
+export type BookCopiesResponse = {
+  book_copy_id: number;
+  book_id: number;
+  library_branch_id: number;
+  library_branch: string;
+  title: string;
+  author: string;
+  publisher: string;
+};
 
 export interface Publisher {
   publisher_id?: number;
@@ -34,13 +44,17 @@ export interface Borrower {
   name: string;
 }
 
-export interface LibraryBranch {
-  library_branch_id?: number;
-  branch_name: string;
-}
+export type LibraryBranch = {
+  library_branch_id: string;
+  name: string;
+};
 
-export interface LibraryBranchBookCopies {
-  library_branch_id?: number;
+export interface LibraryBranchBookCopy {
+  book_copy_id: number;
+  book_id: number;
+  library_branch_id: number;
+  library_branch: string;
+  title: string;
+  author: string;
+  publisher: string;
 }
-
-export type MysqlConnection = any;

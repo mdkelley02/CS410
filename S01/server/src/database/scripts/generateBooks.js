@@ -1,9 +1,30 @@
-const books = require("./books.json");
-let sql = "insert into books (title, author, publisher_id) values ";
-books.forEach((book) => {
-  const publisherId = Math.floor(Math.random() * 19) + 1;
-  sql += `('${book.title}', '${book.author}', ${publisherId}), `;
+const libraryBranches = require("./libraryBranches.json");
+const bookCopies = require("./bookCopies.json");
+const bookLoans = require("./bookLoans.json");
+const fs = require("fs");
+
+// seed library_branch
+let output = "INSERT INTO library_branch (name) VALUES\n";
+libraryBranches.forEach((branch) => {
+  output += `('${branch.name}'),\n`;
 });
-sql = sql.substring(0, sql.length - 2);
-sql += ";";
-console.log(sql);
+output = output.slice(0, -2);
+output += ";\n\n";
+
+// seed book copy
+output += `INSERT INTO library_branch_book_copy (library_branch_id, book_id) VALUES\n`;
+bookCopies.forEach((copy) => {
+  output += `(${copy.library_branch_id}, ${copy.book_id}),\n`;
+});
+output = output.slice(0, -2);
+output += ";\n\n";
+
+// seeed book loans
+output += `INSERT INTO library_branch_book_loan (library_branch_id, book_copy_id, borrower_id) VALUES\n`;
+bookLoans.forEach((loan) => {
+  output += `(${loan.library_branch_id}, ${loan.book_id}, ${loan.borrower_id}),\n`;
+});
+output = output.slice(0, -2);
+output += ";\n\n";
+
+fs.writeFileSync("./seed.sql", output);

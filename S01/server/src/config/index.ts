@@ -1,4 +1,4 @@
-import { Config } from "../models";
+import { Config } from "../types";
 import dotenv from "dotenv";
 dotenv.config();
 
