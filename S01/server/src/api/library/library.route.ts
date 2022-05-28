@@ -12,12 +12,9 @@ router.get("/:libraryBranchId/books", LibraryController.getAllBooks);
 router.get("/:libraryBranchId/loans", LibraryController.getAllLoans);
 
 // creates a new book loan
-router.post(
-  "/:libraryBranchId/loans/checkout/:bookId",
-  LibraryController.checkoutBook
-);
+router.post("/:libraryBranchId/loans", LibraryController.checkoutBook);
 
 // returns a book loan
-router.post("/loans/:loanId/return", LibraryController.returnBook);
+router.post("/loans/return", LibraryController.returnBook);
 
 export default router;

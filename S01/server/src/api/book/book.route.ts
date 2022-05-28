@@ -8,6 +8,8 @@ const router = express.Router();
 // must be able to select which library branches to add the book to
 router.post("/", BookController.create);
 
+router.get("/publisher", BookController.getAllPublishers);
+
 router.get("/:bookId", BookController.getBook);
 router.get("/:bookId/stock", BookController.getBookStock);
 

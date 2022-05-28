@@ -3,6 +3,16 @@ import BookDao from "../../dao/bookDao";
 import { Book } from "../../models";
 
 export default class BookController {
+  static getAllPublishers = (req: any, res: any) => {
+    BookDao.getAllPublishers((err: any, results: any) => {
+      if (err) {
+        res.status(500).json({ error: err });
+      } else {
+        res.json(results);
+      }
+    });
+  };
+
   static getBookStock = async (req: any, res: any) => {
     const bookId = req.params.bookId;
     BookDao.getBookStock(bookId, (err: any, result: any) => {

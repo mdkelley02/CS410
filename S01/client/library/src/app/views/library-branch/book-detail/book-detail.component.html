@@ -2,9 +2,12 @@
   <div class="section">
     <div *ngIf="book$ | async as book">
       <div class="book" *ngFor="let b of book">
-        <div class="title">{{ b.title }}</div>
-        <div class="author">{{ b.author }}</div>
-        <div class="publisher">{{ b.publisher }}</div>
+        <div class="title">Title</div>
+        <div class="field">{{ b.title }}</div>
+        <div class="title">Author</div>
+        <div class="field">{{ b.author }}</div>
+        <div class="title">Publisher</div>
+        <div class="field">{{ b.publisher }}</div>
       </div>
     </div>
   </div>

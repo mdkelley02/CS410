@@ -1,26 +1,27 @@
 <div class="container">
   <div class="section">
     <h2>Library Branches</h2>
-    <mat-list role="list" *ngIf="libraryBranches$ | async as branches">
+    <div role="list" *ngIf="libraryBranches$ | async as branches">
       <div *ngFor="let branch of branches">
         <a [routerLink]="branch.library_branch_id">
-          <mat-list-item>
+          <div class="card">
             {{ branch.name }}
-          </mat-list-item>
+          </div>
         </a>
       </div>
-    </mat-list>
+    </div>
   </div>
   <div class="section">
     <h2>Books</h2>
-    <mat-list role="list" *ngIf="books$ | async as books">
+    <div role="list" *ngIf="books$ | async as books">
       <div *ngFor="let _book of books">
         <a [routerLink]="'book/' + _book.book_id">
-          <mat-list-item>
-            {{ _book.title }}
-          </mat-list-item>
+          <div class="card">
+            <p>Title: {{ _book.title }}</p>
+            <p>Book ID: {{ _book.book_id }}</p>
+          </div>
         </a>
       </div>
-    </mat-list>
+    </div>
   </div>
 </div>

@@ -14,18 +14,18 @@ export default class LibraryController {
 
   // checkout a book
   static checkoutBook = async (req: any, res: any) => {
-    const { libraryBranchId, bookId } = req.params;
-    const { borrower_id } = req.body;
+    const { libraryBranchId } = req.params;
+    const { borrower_id, book_copy_id } = req.body;
 
     LibraryDao.checkoutBook(
       libraryBranchId,
-      bookId,
+      book_copy_id,
       borrower_id,
       (err: any, result: any) => {
         if (err) {
           res.status(500).send(err);
         } else {
-          res.status(200).send(result);
+          res.status(200).send(result.pop());
         }
       }
     );
@@ -33,8 +33,8 @@ export default class LibraryController {
 
   // return a book
   static returnBook = async (req: any, res: any) => {
-    const { bookCopyId } = req.params;
-    LibraryDao.returnBook(bookCopyId, (err: any, result: any) => {
+    const { book_copy_id } = req.body;
+    LibraryDao.returnBook(book_copy_id, (err: any, result: any) => {
       if (err) {
         res.status(500).send(err);
       } else {

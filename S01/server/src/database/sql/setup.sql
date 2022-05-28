@@ -67,25 +67,21 @@ CREATE TABLE IF NOT EXISTS library_branch_book_loan (
     borrower_id INT NOT NULL,
     loan_date DATETIME DEFAULT CURRENT_TIMESTAMP,
     due_date DATETIME,
-    return_date DATETIME NULL,
     PRIMARY KEY (loan_id),
     FOREIGN KEY (library_branch_id) REFERENCES library_branch(library_branch_id),
     FOREIGN KEY (book_copy_id) REFERENCES library_branch_book_copy(book_copy_id),
     FOREIGN KEY (borrower_id) REFERENCES borrower(borrower_id)
 );
 
--- update the due date value for recently inserted loan
--- DELIMITER $ $ CREATE TRIGGER after_library_branch_book_loan_insert
--- AFTER
--- INSERT
---     ON library_branch_book_loan FOR EACH ROW BEGIN
--- UPDATE
---     library_branch_book_loan
--- SET
---     due_date = DATE_ADD(loan_date, INTERVAL 14 DAY)
--- WHERE
---     loan_id = NEW.loan_id;
--- END $ $ DELIMITER;
+-- update the due_date column to 14 days from loan_date
+DELIMITER $ $ CREATE TRIGGER after_library_branch_book_loan_insert BEFORE
+INSERT
+    ON library_branch_book_loan FOR EACH ROW BEGIN
+SET
+    NEW.due_date = DATE_ADD(NEW.loan_date, INTERVAL 14 DAY);
+
+END $ $ DELIMITER;
+
 -- seed tables ==================================
 SET
     FOREIGN_KEY_CHECKS = 1;

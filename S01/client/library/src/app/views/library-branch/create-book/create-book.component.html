@@ -1,0 +1,53 @@
+<div class="container">
+  <form class="form" (ngSubmit)="onFormSubmit()" [formGroup]="createBookForm">
+    <h1>Create Book</h1>
+    <h2>Book Details</h2>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Title</mat-label>
+      <input matInput formControlName="title" />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Author</mat-label>
+      <input matInput formControlName="author" />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" *ngIf="publishers$ | async as publishers">
+      <mat-label>Publisher</mat-label>
+      <mat-select formControlName="publisher">
+        <mat-option
+          *ngFor="let publisher of publishers"
+          [value]="publisher.publisher_id"
+          type="number"
+        >
+          {{ publisher.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-error *ngIf="createBookForm.get('publisher_id')?.hasError('required')">
+      You must make a selection
+    </mat-error>
+    <h2>Library Branch Details</h2>
+    <mat-form-field
+      appearance="fill"
+      *ngIf="libraryBranches$ | async as libraryBranches"
+    >
+      <mat-label>Library Branch</mat-label>
+      <mat-select multiple formControlName="libraryBranch">
+        <mat-option
+          *ngFor="let branch of libraryBranches"
+          [value]="branch.library_branch_id"
+          >{{ branch.name }}</mat-option
+        >
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Number of Copies</mat-label>
+      <input matInput formControlName="numberOfCopies" />
+    </mat-form-field>
+    <div class="button-row">
+      <button type="submit" mat-flat-button color="primary">Submit</button>
+    </div>
+  </form>
+</div>

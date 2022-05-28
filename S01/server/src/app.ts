@@ -5,9 +5,11 @@ import BorrowerRoute from "./api/borrower/borrower.route";
 const cors = require("cors");
 const morgan = require("morgan");
 
+const CLIENT_DIST_DIR = __dirname + "/../../client/library/dist/library";
+
 class App {
   private app: express.Application;
-  private CLIENT_FOLDER = __dirname + "/../../client/library/dist/library";
+
   constructor() {
     this.app = express();
     this.app.use(express.json());
@@ -17,6 +19,7 @@ class App {
     this.registerEndpoints();
     this.serveAngular();
   }
+
   private registerEndpoints() {
     this.app.use("/api/book", BookRoute);
     this.app.use("/api/library", LibraryRoute);
@@ -28,9 +31,9 @@ class App {
   }
 
   public serveAngular() {
-    this.app.use(express.static(this.CLIENT_FOLDER));
+    this.app.use(express.static(CLIENT_DIST_DIR));
     this.app.get("/app/*", (req, res) => {
-      res.sendFile("index.html", { root: this.CLIENT_FOLDER });
+      res.sendFile("index.html", { root: CLIENT_DIST_DIR });
     });
   }
 }

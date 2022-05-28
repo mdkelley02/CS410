@@ -3,6 +3,8 @@
     <span>Library</span>
   </a>
   <span class="spacer"></span>
-  <button mat-stroked-button>Create Book</button>
+  <a [routerLink]="'library/create-book'">
+    <button mat-stroked-button>Create Book</button>
+  </a>
 </mat-toolbar>
 <router-outlet></router-outlet>

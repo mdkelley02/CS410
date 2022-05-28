@@ -12,18 +12,19 @@ export default class LibraryDao {
   }
 
   static getAllBookCopies(libraryBranchId: number, result: DaoCallback) {
-    const sql = `SELECT
-    book_copy_id,
-    book_id,
-    library_branch_id,
-    library_branch.name as 'library_branch', 
-    book.title, book.author, 
-    publisher.name as 'publisher' 
-    FROM ${TABLES.library_branch_book_copy} 
-    inner join ${TABLES.book} using (book_id) 
-    inner join ${TABLES.publisher} using (publisher_id)
-    inner join ${TABLES.library_branch} using (library_branch_id) 
-    where library_branch_id = ?`;
+    const sql = `SELECT 
+    library_branch_book_copy.library_branch_id,
+      library_branch_book_copy.book_copy_id,
+      library_branch.name as 'library_branch',
+      book.book_id,
+    publisher.name as 'publisher',
+      book.title,
+      book.author
+  FROM library_branch_book_copy
+  INNER JOIN book using(book_id) 
+  INNER JOIN publisher using(publisher_id)
+  INNER JOIN library_branch using (library_branch_id)
+  where library_branch_id = ?`;
     const params = [libraryBranchId];
     conn.query(sql, [params], result);
   }
@@ -34,11 +35,31 @@ export default class LibraryDao {
     libraryBranchId: number,
     bookCopyId: number,
     borrowerId: number,
-    result: DaoCallback
-  ) {}
+    callback: DaoCallback
+  ) {
+    const sql = `
+    insert into 
+      library_branch_book_loan (library_branch_id, book_copy_id, borrower_id) 
+    values 
+      (?, ?, ?);`;
+    const params = [libraryBranchId, bookCopyId, borrowerId];
+    conn.query(sql, params, (error: any, result: any) => {
+      if (error) {
+        callback(error, null);
+      } else {
+        const sql = `SELECT due_date FROM ${TABLES.library_branch_book_loan} WHERE loan_id = ?`;
+        const param = [result.insertId];
+        conn.query(sql, param, callback);
+      }
+    });
+  }
 
   // marks a book copy as returned.
-  static returnBook(bookCopyId: number, result: DaoCallback) {}
+  static returnBook(bookCopyId: number, result: DaoCallback) {
+    const sql = `DELETE FROM ${TABLES.library_branch_book_loan} WHERE book_copy_id = ?`;
+    const params = [bookCopyId];
+    conn.query(sql, params, result);
+  }
 
   // creates n number of books copies on a particular library branch
   static createBookCopy(
@@ -55,5 +76,14 @@ export default class LibraryDao {
     conn.query(sql, [params], result);
   }
 
-  static getAllLoans(libraryBranchId: number, result: DaoCallback) {}
+  static getAllLoans(libraryBranchId: number, result: DaoCallback) {
+    const sql = `SELECT 
+    * 
+    FROM ${TABLES.library_branch_book_loan} 
+    INNER JOIN library_branch_book_copy USING (book_copy_id) 
+    INNER JOIN book USING (book_id)
+    WHERE library_branch_book_loan.library_branch_id = ?`;
+    const params = [libraryBranchId];
+    conn.query(sql, params, result);
+  }
 }

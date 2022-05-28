@@ -5,6 +5,19 @@ export type Book = {
   publisher_id: number;
 };
 
+export type BooksLoaned = {
+  loan_id: number;
+  book_id: number;
+  title: string;
+  author: string;
+  library_branch_id: number;
+  book_copy_id: number;
+  borrower_id: number;
+  loan_date: string;
+  due_date: string;
+  return_date: string;
+};
+
 export type BookResponse = {
   book_id: string;
   publisher_id: number;
@@ -58,3 +71,8 @@ export interface LibraryBranchBookCopy {
   author: string;
   publisher: string;
 }
+
+export type PublisherResponse = {
+  publisher_id: number;
+  name: string;
+};

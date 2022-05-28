@@ -5,6 +5,12 @@ import { Book } from "../models";
 
 export default class BookDao {
   static table = TABLES.book;
+
+  static getAllPublishers(result: DaoCallback) {
+    const sql = `SELECT * FROM ${TABLES.publisher}`;
+    conn.query(sql, [], result);
+  }
+
   static getBook(bookId: number, result: DaoCallback) {
     const sql = `SELECT book.book_id, book.publisher_id, book.title, book.author, publisher.name as 'publisher' FROM ${this.table} INNER JOIN publisher using (publisher_id) WHERE book_id = ?`;
     conn.query(sql, [bookId], result);
