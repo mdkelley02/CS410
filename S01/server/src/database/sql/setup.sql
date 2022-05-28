@@ -73,14 +73,23 @@ CREATE TABLE IF NOT EXISTS library_branch_book_loan (
     FOREIGN KEY (borrower_id) REFERENCES borrower(borrower_id)
 );
 
--- update the due_date column to 14 days from loan_date
-DELIMITER $ $ CREATE TRIGGER after_library_branch_book_loan_insert BEFORE
-INSERT
-    ON library_branch_book_loan FOR EACH ROW BEGIN
-SET
-    NEW.due_date = DATE_ADD(NEW.loan_date, INTERVAL 14 DAY);
+DELIMITER $$ 
+CREATE TRIGGER before_library_branch_book_loan_insert 
+BEFORE INSERT
+ON library_branch_book_loan FOR EACH ROW 
+BEGIN
+    SET NEW.due_date = DATE_ADD(NEW.loan_date, INTERVAL 14 DAY);
+END $$ 
+DELIMITER ;
 
-END $ $ DELIMITER;
+-- DELIMITER $$ 
+-- CREATE TRIGGER before_library_branch_book_loan_insert 
+-- BEFORE INSERT
+-- ON library_branch_book_loan FOR EACH ROW 
+-- BEGIN
+--     SET NEW.due_date = DATE_ADD(NEW.loan_date, INTERVAL 14 DAY);
+-- END $$ 
+-- DELIMITER ;
 
 -- seed tables ==================================
 SET
@@ -296,6 +305,7 @@ VALUES
     ('Twin Falls Library'),
     ('Coeur d''Alene Library');
 
+-- seed library_branch_book_copy
 INSERT INTO
     library_branch_book_copy (library_branch_id, book_id)
 VALUES

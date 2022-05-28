@@ -12,6 +12,7 @@ import {
   LibraryBranch,
   Book,
 } from '../../../../../../../server/src/models';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-create-book',
@@ -24,7 +25,8 @@ export class CreateBookComponent implements OnInit {
   public createBookForm: FormGroup;
   constructor(
     private libraryBranchService: LibraryBranchService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private router: Router
   ) {
     this.publishers$ = this.libraryBranchService.getPublishers();
     this.libraryBranches$ = this.libraryBranchService.getLibraryBranches();
@@ -50,7 +52,6 @@ export class CreateBookComponent implements OnInit {
         .createBook(book, libraryBranch, numberOfCopies)
         .subscribe(console.log);
     }
+    this.router.navigate(['/']);
   }
-
-  validateForm() {}
 }

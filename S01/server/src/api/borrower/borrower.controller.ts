@@ -11,6 +11,4 @@ export default class BorrowerController {
       }
     });
   };
-  // returns all the books loaned by a borrower
-  static getAllLoanedBooks = async (req: any, res: any) => {};
 }

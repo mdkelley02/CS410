@@ -11,17 +11,22 @@
       </div>
     </div>
   </div>
-  <div class="section">
-    <h2>Books</h2>
-    <div role="list" *ngIf="books$ | async as books">
-      <div *ngFor="let _book of books">
-        <a [routerLink]="'book/' + _book.book_id">
-          <div class="card">
-            <p>Title: {{ _book.title }}</p>
-            <p>Book ID: {{ _book.book_id }}</p>
-          </div>
-        </a>
+  <mat-accordion multi>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>Books</mat-panel-title>
+      </mat-expansion-panel-header>
+      <div role="list" *ngIf="books$ | async as books">
+        <div *ngFor="let _book of books">
+          <a [routerLink]="'book/' + _book.book_id">
+            <div class="card">
+              <p>Title: {{ _book.title }}</p>
+              <p>Author: {{ _book.author }}</p>
+              <p>Book ID: {{ _book.book_id }}</p>
+            </div>
+          </a>
+        </div>
       </div>
-    </div>
-  </div>
+    </mat-expansion-panel>
+  </mat-accordion>
 </div>

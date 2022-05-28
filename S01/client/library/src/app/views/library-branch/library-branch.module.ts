@@ -8,6 +8,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTableModule } from '@angular/material/table';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 import { LibraryBranchRoutingModule } from './library-branch-routing.module';
 import { LibraryBranchDetailComponent } from './library-branch-detail/library-branch-detail.component';
@@ -34,6 +35,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     FormsModule,
     ReactiveFormsModule,
     MatTableModule,
+    MatExpansionModule,
   ],
 })
 export class LibraryBranchModule {}

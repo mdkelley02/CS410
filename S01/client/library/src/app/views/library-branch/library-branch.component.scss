@@ -1,8 +1,18 @@
-
+@use "sass:color";
+$primary: #009688;
+$primary-light: color.change(
+    $primary,
+    $alpha: 0.5
+);
 .card {
     padding: 1rem;
     border: 1px solid #ccc;
-    margin-bottom: 1rem;
+    margin-bottom: 30px;
     background-color: #fafafa;
     border-radius: 0.25rem;
+    &:hover {
+        background: $primary;
+        transition: all 0.3s ease;
+        color: white;
+    }
 }

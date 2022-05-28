@@ -1,65 +1,81 @@
 <div class="container">
-  <div class="section">
-    <h2>Loan Book</h2>
-    <form
-      class="form"
-      (ngSubmit)="handleLoanBookSubmit()"
-      [formGroup]="loanBookForm"
-    >
-      <mat-form-field appearance="fill" *ngIf="borrowers$ | async as borrowers">
-        <mat-label>Borrower ID</mat-label>
-        <mat-select formControlName="borrowerId">
-          <mat-option
-            *ngFor="let borrower of borrowers"
-            [value]="borrower.borrower_id"
-            type="number"
-          >
-            {{ borrower.name }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-      <mat-form-field appearance="fill" *ngIf="books$ | async as books">
-        <mat-label>Book Copy Id</mat-label>
-        <mat-select formControlName="bookCopyId">
-          <mat-option
-            *ngFor="let book of books"
-            [value]="book.book_copy_id"
-            type="number"
-          >
-            {{ book.title }}-{{ book.book_copy_id }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-      <button type="submit" mat-raised-button color="primary">Loan Book</button>
-    </form>
-  </div>
-  <div class="section">
-    <h2>Return Book</h2>
-    <div *ngIf="loanedBooks$ | async as loanedBooks">
-      <div class="book" *ngFor="let book of loanedBooks">
-        <div>Title: {{ book.title }}</div>
-        <div>Borrower ID: {{ book.borrower_id }}</div>
-        <div>Book Copy ID: {{ book.book_copy_id }}</div>
-        <div>Loan Date: {{ book.loan_date | date }}</div>
-        <div>Due Date: {{ book.due_date | date }}</div>
-        <button
-          mat-stroked-button
-          color="primary"
-          (click)="returnBook(book.book_copy_id)"
+  <mat-accordion multi>
+    <mat-expansion-panel expanded>
+      <mat-expansion-panel-header>
+        <mat-panel-title>Checkout Book</mat-panel-title>
+      </mat-expansion-panel-header>
+      <div>
+        <h2>Loan Book</h2>
+        <form
+          class="form"
+          (ngSubmit)="handleLoanBookSubmit()"
+          [formGroup]="loanBookForm"
         >
-          Return Book
-        </button>
+          <mat-form-field
+            appearance="fill"
+            *ngIf="borrowers$ | async as borrowers"
+          >
+            <mat-label>Borrower</mat-label>
+            <mat-select formControlName="borrowerId">
+              <mat-option
+                *ngFor="let borrower of borrowers"
+                [value]="borrower.borrower_id"
+                type="number"
+              >
+                {{ borrower.name }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field appearance="fill" *ngIf="books$ | async as books">
+            <mat-label>Book</mat-label>
+            <mat-select formControlName="bookCopyId">
+              <mat-option
+                *ngFor="let book of books"
+                [value]="book.book_copy_id"
+                type="number"
+              >
+                {{ book.title }} - {{ book.book_copy_id }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <button type="submit" mat-flat-button color="primary">
+            Loan Book
+          </button>
+        </form>
       </div>
-    </div>
-  </div>
-  <div class="section">
-    <h2>Book Copies</h2>
-    <div *ngIf="books$ | async as books">
-      <div class="book" *ngFor="let book of books">
-        <div>Title: {{ book.title }}</div>
-        <div>Book Copy ID: {{ book.book_copy_id }}</div>
-        <div>Book ID: {{ book.book_id }}</div>
+    </mat-expansion-panel>
+    <mat-expansion-panel expanded>
+      <mat-expansion-panel-header>
+        <mat-panel-title>Book Loans</mat-panel-title>
+      </mat-expansion-panel-header>
+      <div *ngIf="loanedBooks$ | async as loanedBooks">
+        <div class="book" *ngFor="let book of loanedBooks">
+          <div>Title: {{ book.title }}</div>
+          <div>Borrower ID: {{ book.borrower_id }}</div>
+          <div>Book Copy ID: {{ book.book_copy_id }}</div>
+          <div>Loan Date: {{ book.loan_date | date }}</div>
+          <div>Due Date: {{ book.due_date | date }}</div>
+          <button
+            mat-flat-button
+            color="primary"
+            (click)="returnBook(book.book_copy_id)"
+          >
+            Return Book
+          </button>
+        </div>
       </div>
-    </div>
-  </div>
+    </mat-expansion-panel>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>Book Copies</mat-panel-title>
+      </mat-expansion-panel-header>
+      <div *ngIf="books$ | async as books">
+        <div class="book" *ngFor="let book of books">
+          <div>Title: {{ book.title }}</div>
+          <div>Book Copy ID: {{ book.book_copy_id }}</div>
+          <div>Book ID: {{ book.book_id }}</div>
+        </div>
+      </div>
+    </mat-expansion-panel>
+  </mat-accordion>
 </div>
