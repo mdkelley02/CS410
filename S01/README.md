@@ -15,6 +15,13 @@
 <li>Navigate to <code>server/</code> start the application <code>npm run start</code></li>
 <li>Application will be running at <code>localhost:3000</code></li>
 </ol>
+<h2>Lessons Learned</h2>
+<p>
+    Not much in this project was new per se, however, it was a great learning opporunity to actually compile my previous learnings into a functional application (albeit elementary)
+</p>
+<p>
+    Triggers were by far my largest obstacke. Initially I created an after insert tigger to set the loan due date for a book loan. Through some internet searching I learned that inserting a value during an after insert trigger would cause an infinite loop. I Eventually implemented the trigger using a before insert trigger so that before the book loan gets inserted into the table, the loan date is set accordingly.
+</p>
 <hr/>
 <h2>Schema</h2>
 <code>

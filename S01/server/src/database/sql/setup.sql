@@ -12,8 +12,8 @@ SET
 SET
     UNIQUE_CHECKS = 0;
 
+-- book ==================================
 DROP TABLE IF EXISTS book;
-
 CREATE TABLE IF NOT EXISTS book (
     book_id INT AUTO_INCREMENT NOT NULL,
     title VARCHAR(255) NOT NULL,
@@ -23,32 +23,281 @@ CREATE TABLE IF NOT EXISTS book (
     FOREIGN KEY (publisher_id) REFERENCES publisher(publisher_id)
 );
 
-DROP TABLE IF EXISTS publisher;
+-- book auditing
+DROP TABLE IF EXISTS book_audit_log;
+CREATE TABLE IF NOT EXISTS book_audit_log (
+    audit_id INT AUTO_INCREMENT NOT NULL,
+    book_id INT NOT NULL,
+    old_book_data JSON,
+    new_book_data JSON,
+    dml_type ENUM('INSERT', 'UPDATE') NOT NULL,
+    dml_timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    dml_created_by VARCHAR(255) NOT NULL,
+    PRIMARY KEY (audit_id, book_id)
+);
 
+DELIMITER $$ 
+CREATE TRIGGER book_insert_trigger 
+AFTER INSERT ON book FOR EACH ROW
+BEGIN
+    INSERT INTO book_audit_log (
+        book_id,
+        old_book_data,
+        new_book_data,
+        dml_type,
+        dml_created_by
+    )
+    VALUES (
+        NEW.book_id,
+        NULL,
+        JSON_OBJECT(
+            'title', NEW.title,
+            'author', NEW.author,
+            'publisher_id', NEW.publisher_id
+        ),
+        'INSERT',
+        CURRENT_USER
+    );
+END$$
+DELIMITER ;
+
+DELIMITER $$ 
+CREATE TRIGGER book_update_trigger 
+AFTER UPDATE ON book FOR EACH ROW
+BEGIN
+    INSERT INTO book_audit_log (
+        book_id,
+        old_book_data,
+        new_book_data,
+        dml_type,
+        dml_created_by
+    )
+    VALUES (
+        NEW.book_id,
+        JSON_OBJECT(
+            'title', OLD.title,
+            'author', OLD.author,
+            'publisher_id', OLD.publisher_id
+        ),
+        JSON_OBJECT(
+            'title', NEW.title,
+            'author', NEW.author,
+            'publisher_id', NEW.publisher_id
+        ),
+        'UPDATE',
+        CURRENT_USER
+    );
+END$$
+DELIMITER ;
+
+-- publisher ==================================
+DROP TABLE IF EXISTS publisher;
 CREATE TABLE IF NOT EXISTS publisher (
     publisher_id INT AUTO_INCREMENT NOT NULL,
     name VARCHAR(255) NOT NULL,
     PRIMARY KEY (publisher_id)
 );
+-- publisher auditing
+DROP TABLE IF EXISTS publisher_audit_log;
+CREATE TABLE IF NOT EXISTS publisher_audit_log (
+    audit_id INT AUTO_INCREMENT NOT NULL,
+    publisher_id INT NOT NULL,
+    old_publisher_data JSON,
+    new_publisher_data JSON,
+    dml_type ENUM('INSERT', 'UPDATE') NOT NULL,
+    dml_timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    dml_created_by VARCHAR(255) NOT NULL,
+    PRIMARY KEY (audit_id, publisher_id)
+);
 
+DELIMITER $$
+CREATE TRIGGER publisher_insert_trigger
+AFTER INSERT ON publisher FOR EACH ROW
+BEGIN
+    INSERT INTO publisher_audit_log (
+        publisher_id,
+        old_publisher_data,
+        new_publisher_data,
+        dml_type,
+        dml_created_by
+    )
+    VALUES (
+        NEW.publisher_id,
+        NULL,
+        JSON_OBJECT(
+            'name', NEW.name
+        ),
+        'INSERT',
+        CURRENT_USER
+    );
+END$$
+DELIMITER ;
+
+DELIMITER $$
+CREATE TRIGGER publisher_update_trigger
+AFTER UPDATE ON publisher FOR EACH ROW
+BEGIN
+    INSERT INTO publisher_audit_log (
+        publisher_id,
+        old_publisher_data,
+        new_publisher_data,
+        dml_type,
+        dml_created_by
+    )
+    VALUES (
+        NEW.publisher_id,
+        JSON_OBJECT(
+            'name', OLD.name
+        ),
+        JSON_OBJECT(
+            'name', NEW.name
+        ),
+        'UPDATE',
+        CURRENT_USER
+    );
+END$$
+DELIMITER ;
+
+-- borrower ==================================
 DROP TABLE IF EXISTS borrower;
-
 CREATE TABLE IF NOT EXISTS borrower (
     borrower_id INT AUTO_INCREMENT,
     name VARCHAR(255) NOT NULL,
     PRIMARY KEY (borrower_id)
 );
 
-DROP TABLE IF EXISTS library_branch;
+-- borrower auditing
+DROP TABLE IF EXISTS borrower_audit_log;
+CREATE TABLE IF NOT EXISTS borrower_audit_log (
+    audit_id INT AUTO_INCREMENT,
+    borrower_id INT NOT NULL,
+    old_borrower_data JSON,
+    new_borrower_data JSON,
+    dml_type ENUM('INSERT', 'UPDATE') NOT NULL,
+    dml_timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    dml_created_by VARCHAR(255) NOT NULL,
+    PRIMARY KEY (audit_id, borrower_id)
+);
 
+DELIMITER $$
+CREATE TRIGGER borrower_insert_trigger
+AFTER INSERT ON borrower FOR EACH ROW
+BEGIN
+    INSERT INTO borrower_audit_log (
+        borrower_id,
+        old_borrower_data,
+        new_borrower_data,
+        dml_type,
+        dml_created_by
+    )
+    VALUES (
+        NEW.borrower_id,
+        NULL,
+        JSON_OBJECT(
+            'name', NEW.name
+        ),
+        'INSERT',
+        CURRENT_USER
+    );
+END$$
+DELIMITER ;
+
+DELIMITER $$
+CREATE TRIGGER borrower_update_trigger
+AFTER UPDATE ON borrower FOR EACH ROW
+BEGIN
+    INSERT INTO borrower_audit_log (
+        borrower_id,
+        old_borrower_data,
+        new_borrower_data,
+        dml_type,
+        dml_created_by
+    )
+    VALUES (
+        NEW.borrower_id,
+        JSON_OBJECT(
+            'name', OLD.name
+        ),
+        JSON_OBJECT(
+            'name', NEW.name
+        ),
+        'UPDATE',
+        CURRENT_USER
+    );
+END$$
+DELIMITER ;
+
+-- library branch ==================================
+DROP TABLE IF EXISTS library_branch;
 CREATE TABLE IF NOT EXISTS library_branch (
     library_branch_id INT AUTO_INCREMENT,
     name VARCHAR(255) NOT NULL,
     PRIMARY KEY (library_branch_id)
 );
 
-DROP TABLE IF EXISTS library_branch_book_copy;
+-- library branch auditing
+DROP TABLE IF EXISTS library_branch_audit_log;
+CREATE TABLE IF NOT EXISTS library_branch_audit_log (
+    audit_id INT AUTO_INCREMENT,
+    library_branch_id INT NOT NULL,
+    old_library_branch_data JSON,
+    new_library_branch_data JSON,
+    dml_type ENUM('INSERT', 'UPDATE') NOT NULL,
+    dml_timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    dml_created_by VARCHAR(255) NOT NULL,
+    PRIMARY KEY (audit_id, library_branch_id)
+);
 
+DELIMITER $$
+CREATE TRIGGER library_branch_insert_trigger
+AFTER INSERT ON library_branch FOR EACH ROW
+BEGIN
+    INSERT INTO library_branch_audit_log (
+        library_branch_id,
+        old_library_branch_data,
+        new_library_branch_data,
+        dml_type,
+        dml_created_by
+    )
+    VALUES (
+        NEW.library_branch_id,
+        NULL,
+        JSON_OBJECT(
+            'name', NEW.name
+        ),
+        'INSERT',
+        CURRENT_USER
+    );
+END$$
+DELIMITER ;
+
+DELIMITER $$
+CREATE TRIGGER library_branch_update_trigger
+AFTER UPDATE ON library_branch FOR EACH ROW
+BEGIN
+    INSERT INTO library_branch_audit_log (
+        library_branch_id,
+        old_library_branch_data,
+        new_library_branch_data,
+        dml_type,
+        dml_created_by
+    )
+    VALUES (
+        NEW.library_branch_id,
+        JSON_OBJECT(
+            'name', OLD.name
+        ),
+        JSON_OBJECT(
+            'name', NEW.name
+        ),
+        'UPDATE',
+        CURRENT_USER
+    );
+END$$
+DELIMITER ;
+
+-- library branch book copy ==================================
+DROP TABLE IF EXISTS library_branch_book_copy;
 CREATE TABLE IF NOT EXISTS library_branch_book_copy (
     book_copy_id INT AUTO_INCREMENT,
     library_branch_id INT NOT NULL,
@@ -58,8 +307,72 @@ CREATE TABLE IF NOT EXISTS library_branch_book_copy (
     FOREIGN KEY (book_id) REFERENCES book(book_id)
 );
 
-DROP TABLE IF EXISTS library_branch_book_loan;
+-- library branch book copy auditing
+DROP TABLE IF EXISTS library_branch_book_copy_audit_log;
+CREATE TABLE IF NOT EXISTS library_branch_book_copy_audit_log (
+    audit_id INT AUTO_INCREMENT,
+    book_copy_id INT NOT NULL,
+    old_library_branch_book_copy_data JSON,
+    new_library_branch_book_copy_data JSON,
+    dml_type ENUM('INSERT', 'UPDATE') NOT NULL,
+    dml_timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    dml_created_by VARCHAR(255) NOT NULL,
+    PRIMARY KEY (audit_id, book_copy_id)
+);
 
+DELIMITER $$
+CREATE TRIGGER library_branch_book_copy_insert_trigger
+AFTER INSERT ON library_branch_book_copy FOR EACH ROW
+BEGIN
+    INSERT INTO library_branch_book_copy_audit_log (
+        book_copy_id,
+        old_library_branch_book_copy_data,
+        new_library_branch_book_copy_data,
+        dml_type,
+        dml_created_by
+    )
+    VALUES (
+        NEW.book_copy_id,
+        NULL,
+        JSON_OBJECT(
+            'library_branch_id', NEW.library_branch_id,
+            'book_id', NEW.book_id
+        ),
+        'INSERT',
+        CURRENT_USER
+    );
+END$$
+DELIMITER ;
+
+DELIMITER $$
+CREATE TRIGGER library_branch_book_copy_update_trigger
+AFTER UPDATE ON library_branch_book_copy FOR EACH ROW
+BEGIN
+    INSERT INTO library_branch_book_copy_audit_log (
+        book_copy_id,
+        old_library_branch_book_copy_data,
+        new_library_branch_book_copy_data,
+        dml_type,
+        dml_created_by
+    )
+    VALUES (
+        NEW.book_copy_id,
+        JSON_OBJECT(
+            'library_branch_id', OLD.library_branch_id,
+            'book_id', OLD.book_id
+        ),
+        JSON_OBJECT(
+            'library_branch_id', NEW.library_branch_id,
+            'book_id', NEW.book_id
+        ),
+        'UPDATE',
+        CURRENT_USER
+    );
+END$$
+DELIMITER ;
+
+-- library branch book loan ==================================
+DROP TABLE IF EXISTS library_branch_book_loan;
 CREATE TABLE IF NOT EXISTS library_branch_book_loan (
     loan_id INT AUTO_INCREMENT NOT NULL,
     library_branch_id INT NOT NULL,
@@ -73,6 +386,83 @@ CREATE TABLE IF NOT EXISTS library_branch_book_loan (
     FOREIGN KEY (borrower_id) REFERENCES borrower(borrower_id)
 );
 
+-- library branch book loan auditing
+DROP TABLE IF EXISTS library_branch_book_loan_audit_log;
+CREATE TABLE IF NOT EXISTS library_branch_book_loan_audit_log (
+    audit_id INT AUTO_INCREMENT NOT NULL,
+    loan_id INT NOT NULL,
+    old_loan_data JSON,
+    new_loan_data JSON,
+    dml_type ENUM('INSERT', 'UPDATE') NOT NULL,
+    dml_timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    dml_created_by VARCHAR(255) NOT NULL,
+    PRIMARY KEY (audit_id, loan_id)
+);
+
+DELIMITER $$ 
+CREATE TRIGGER library_branch_book_loan_insert_trigger 
+AFTER INSERT ON library_branch_book_loan FOR EACH ROW
+BEGIN
+    INSERT INTO library_branch_book_loan_audit_log (
+        loan_id,
+        old_loan_data,
+        new_loan_data,
+        dml_type,
+        dml_created_by
+    )
+    VALUES (
+        NEW.loan_id,
+        NULL,
+        JSON_OBJECT(
+            'loan_id', NEW.loan_id,
+            'library_branch_id', NEW.library_branch_id,
+            'book_copy_id', NEW.book_copy_id,
+            'borrower_id', NEW.borrower_id,
+            'loan_date', NEW.loan_date,
+            'due_date', NEW.due_date
+        ),
+        'INSERT',
+        CURRENT_USER
+    );
+END$$
+DELIMITER ;
+
+DELIMITER $$ 
+CREATE TRIGGER library_branch_book_loan_update_trigger 
+AFTER UPDATE ON library_branch_book_loan FOR EACH ROW
+BEGIN
+    INSERT INTO library_branch_book_loan_audit_log (
+        loan_id,
+        old_loan_data,
+        new_loan_data,
+        dml_type,
+        dml_created_by
+    )
+    VALUES (
+        NEW.loan_id,
+        JSON_OBJECT(
+            'loan_id', OLD.loan_id,
+            'library_branch_id', OLD.library_branch_id,
+            'book_copy_id', OLD.book_copy_id,
+            'borrower_id', OLD.borrower_id,
+            'loan_date', OLD.loan_date,
+            'due_date', OLD.due_date
+        ),
+        JSON_OBJECT(
+            'loan_id', NEW.loan_id,
+            'library_branch_id', NEW.library_branch_id,
+            'book_copy_id', NEW.book_copy_id,
+            'borrower_id', NEW.borrower_id,
+            'loan_date', NEW.loan_date,
+            'due_date', NEW.due_date
+        ),
+        'UPDATE',
+        CURRENT_USER
+    );
+END$$
+DELIMITER ;
+
+-- create book loan due date trigger
 DELIMITER $$ 
 CREATE TRIGGER before_library_branch_book_loan_insert 
 BEFORE INSERT
@@ -81,15 +471,6 @@ BEGIN
     SET NEW.due_date = DATE_ADD(NEW.loan_date, INTERVAL 14 DAY);
 END $$ 
 DELIMITER ;
-
--- DELIMITER $$ 
--- CREATE TRIGGER before_library_branch_book_loan_insert 
--- BEFORE INSERT
--- ON library_branch_book_loan FOR EACH ROW 
--- BEGIN
---     SET NEW.due_date = DATE_ADD(NEW.loan_date, INTERVAL 14 DAY);
--- END $$ 
--- DELIMITER ;
 
 -- seed tables ==================================
 SET
